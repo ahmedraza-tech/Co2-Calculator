@@ -1,0 +1,84 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CO₂ Commute Calculator</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #e0f7fa;
+            text-align: center;
+            padding: 20px;
+        }
+        .container {
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+            max-width: 400px;
+            margin: auto;
+        }
+        select, input, button {
+            width: 100%;
+            margin: 10px 0;
+            padding: 10px;
+            font-size: 16px;
+            border-radius: 5px;
+            border: 1px solid #ccc;
+        }
+        button {
+            background-color: #00796b;
+            color: white;
+            border: none;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #004d40;
+        }
+        #result {
+            margin-top: 20px;
+            font-size: 18px;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h2>CO₂ Commute Calculator</h2>
+    <label for="distance">Enter your daily commute distance (km):</label>
+    <input type="number" id="distance" placeholder="Enter km" min="0">
+
+    <label for="transport">Select your transport mode:</label>
+    <select id="transport">
+        <option value="0.25">🚗 Car (Solo) - 0.25 kg/km</option>
+        <option value="0.06">🚙 Carpool (4 people) - 0.06 kg/km</option>
+        <option value="0.07">🚌 Bus - 0.07 kg/km</option>
+        <option value="0.04">🚆 Train - 0.04 kg/km</option>
+        <option value="0.0">🚲 Bicycle/Walk - 0 kg/km</option>
+        <option value="0.06">⚡ Electric Car - 0.06 kg/km</option>
+    </select>
+
+    <button onclick="calculateCO2()">Calculate CO₂</button>
+    <div id="result"></div>
+</div>
+
+<script>
+    function calculateCO2() {
+        let distance = document.getElementById("distance").value;
+        let transport = document.getElementById("transport");
+        let emissionFactor = parseFloat(transport.value);
+
+        if (distance && parseFloat(distance) > 0) {
+            let co2Emission = (parseFloat(distance) * emissionFactor).toFixed(2);
+            document.getElementById("result").innerHTML = `Your daily CO₂ emission: <strong>${co2Emission} kg</strong>`;
+        } else {
+            document.getElementById("result").innerHTML = "<span style='color: red;'>Please enter a valid distance.</span>";
+        }
+    }
+</script>
+
+</body>
+</html>
